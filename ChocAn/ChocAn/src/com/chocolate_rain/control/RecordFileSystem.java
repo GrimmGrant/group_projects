@@ -22,6 +22,9 @@ public class RecordFileSystem {
 	
 	public RecordFileSystem() {
 		//TODO
+		maintainer = new RecordMaintainer();
+		generator = new ReportGenerator();
+		directory = new ProviderDirectory();
 	}
 	
 	public boolean lookUpService(String serviceCode){
