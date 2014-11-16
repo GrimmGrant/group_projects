@@ -2,6 +2,8 @@ package com.chocolate_rain.ui;
 
 import java.util.Scanner;
 
+import com.chocolate_rain.control.RecordFileSystem;
+
 public class ManagerTerminalUI {
 	
 	private static final int NUMBER_LEN = 9;
@@ -46,10 +48,14 @@ public class ManagerTerminalUI {
 			+ "\n3. Service price"
 			+ "\n4. Exit";
 	
-	//private static RecordFileSystem recordFileSys; TODO
+	private RecordFileSystem recordFileSys;
 	
 	public static void main(String[] args){
-		
+		ManagerTerminalUI terminal = new ManagerTerminalUI();
+		terminal.run();
+	}
+	
+	public void run(){
 		Scanner stdIn = new Scanner(System.in);
 		
 		while(true){
@@ -89,7 +95,6 @@ public class ManagerTerminalUI {
 			}	
 			
 		}
-	
 	}
 	
 	/**
@@ -98,7 +103,7 @@ public class ManagerTerminalUI {
 	 * @param scanner
 	 * @return
 	 */
-	public static boolean createRecord(Scanner scanner){
+	public boolean createRecord(Scanner scanner){
 		String type;
 		int option;
 		String name, number, address, state, city, zip;
@@ -127,7 +132,7 @@ public class ManagerTerminalUI {
 	 * @param scanner
 	 * @return
 	 */
-	public static boolean updateRecord(Scanner scanner){
+	public boolean updateRecord(Scanner scanner){
 		String type = prompt(typePrompt, scanner, Integer.class);
 		String number = prompt(numberPrompt, scanner, Integer.class);
 		int field = Integer.parseInt(prompt(recordUpdateMenu, scanner, Integer.class));
@@ -191,7 +196,7 @@ public class ManagerTerminalUI {
 	 * @param scanner
 	 * @return
 	 */
-	public static boolean generateReport(Scanner scanner){
+	public boolean generateReport(Scanner scanner){
 		String type, number;
 		
 		type = prompt(typePrompt, scanner, String.class);
@@ -211,7 +216,7 @@ public class ManagerTerminalUI {
 	 * the Privder Directory to the console.
 	 * @return
 	 */
-	public static boolean requestProviderDir(){
+	public boolean requestProviderDir(){
 		
 		//recordFileSys.requestProviderDirectory(); TODO
 		
@@ -224,7 +229,7 @@ public class ManagerTerminalUI {
 	 * @param scanner
 	 * @return
 	 */
-	public static boolean updateProviderDir(Scanner scanner){
+	public boolean updateProviderDir(Scanner scanner){
 		String option = prompt(providerDirectoryUpdateMenu, scanner, Integer.class);
 		int field = Integer.parseInt(option);
 		
@@ -271,10 +276,11 @@ public class ManagerTerminalUI {
 	 * @param type
 	 * @return
 	 */
-	public static String prompt(String prompt, Scanner scanner, Class type){
+	public String prompt(String prompt, Scanner scanner, Class type){
 		String input;
 		System.out.println(prompt);
 		input = scanner.next();
+		
 		//for numeric types, we need to ensure that the strings are parseable as numeric types. 
 		if(type == Integer.class){
 			try{
@@ -292,7 +298,7 @@ public class ManagerTerminalUI {
 				return null;
 			}
 		}
-		
+		//check for empty strings/newlines
 		if(input.equals("") || input.equals("\n")){
 			return null;
 		}
