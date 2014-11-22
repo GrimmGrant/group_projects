@@ -281,7 +281,7 @@ public class ManagerTerminalUI {
 		System.out.println(prompt);
 		input = scanner.next();
 		
-		//for numeric types, we need to ensure that the strings are parseable as numeric types. 
+		//for numeric types, we need to ensure that the strings are parsable as numeric types. 
 		if(type == Integer.class){
 			try{
 				Integer.parseInt(input);
